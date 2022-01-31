@@ -1,0 +1,26 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}modifier un pays{% endblock %}
+{% block body %}
+        <!-- /.content-header -->     <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                {{ form_start(form) }}
+                <img width="200"  src="{{ asset('assets/images/gallary/' ~ pays.image) }}">
+                <div> {{ form_row(form.imageFile) }} </div>
+                <div>  {{ form_widget(form) }} </div>
+                <input type="submit" class="btn btn-primary" value="modifier">
+                {{ form_end(form) }}
+            </div>
+        </section>
+
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+{% endblock %}

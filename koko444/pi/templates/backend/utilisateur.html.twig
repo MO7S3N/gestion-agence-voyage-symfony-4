@@ -1,0 +1,113 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+{% block montitre %}Liste de tous les utilisateurs
+
+
+{% endblock %}
+
+
+{% block body %}
+    
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Les Utilisateurs</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+
+                                        {% for message in app.flashes('success') %}
+                                            <div class="alert alert-success">{{ message }}</div>
+                                        {% endfor %}
+
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <form class="w_search">
+                                                <div class="sidebar-search">
+                                                    <div class="input-group custom-search-form">
+                                                        <input type="text" id="search" name="search" class="form-control" placeholder="Search">
+                                                    </div>
+                                                    <!-- /input-group --></div></form>
+
+                                            <a class="btn btn-success" href="{{ path('admin_creation') }}" >Ajouter</a>
+                                            <thead>
+
+                                            <tr>
+                                                <th>image</th>
+                                                <th>nom</th>
+                                                <th>prenom</th>
+                                                <th>E-mail</th>
+                                                <th>userName</th>
+
+                                            </tr>
+                                            </thead>
+
+                                                <tbody id="all">
+
+                                                {{ include ('backend/utilajax.html.twig') }}
+
+                                                </tbody>
+                                            <tbody id="search">
+
+
+                                            </tbody>
+
+
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            var currentRequest = null;
+            $("#search").keyup(function(e){
+                var value = $(this).val();
+                if(currentRequest != null) {
+                    currentRequest.abort();
+                }
+                currentRequest = $.ajax({
+
+                    url : "{{ path('utilsearch') }}",
+                    type : 'GET',
+                    data: {
+                        'searchValue' : value
+                    },
+
+                    success : function(retour)
+                    {
+                        $('#all').html(retour);
+
+                    },
+                });
+                return false;
+            });
+        });
+    </script>
+
+{% endblock %}
